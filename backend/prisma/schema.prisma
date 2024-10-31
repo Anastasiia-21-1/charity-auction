@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String    @id @default(uuid())
+  name     String
+  email    String    @unique
+  password String
+  auctions Auction[]
+
+  bids      Bid[]
+  reviews   Review[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Auction {
+  id            String         @id @default(uuid())
+  title         String
+  description   String
+  startingPrice Float
+  currency      String
+  images        AuctionImage[]
+  createdBy     User           @relation(fields: [createdById], references: [id])
+  createdById   String
+  bids          Bid[]
+  charity       Charity        @relation(fields: [charityId], references: [id])
+  charityId     String
+  createdAt     DateTime       @default(now())
+  endsAt        DateTime
+  reviews       Review[]
+  donations     Donation[]
+}
+
+model AuctionImage {
+  id        String  @id @default(uuid())
+  url       String
+  auction   Auction @relation(fields: [auctionId], references: [id])
+  auctionId String
+}
+
+model Bid {
+  id        String   @id @default(uuid())
+  amount    Float
+  currency  String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  auction   Auction  @relation(fields: [auctionId], references: [id])
+  auctionId String
+  createdAt DateTime @default(now())
+}
+
+model Charity {
+  id          String     @id @default(uuid())
+  name        String
+  description String
+  website     String?
+  auctions    Auction[]
+  donations   Donation[]
+  createdAt   DateTime   @default(now())
+}
+
+model Donation {
+  id        String   @id @default(uuid())
+  amount    Float
+  currency  String
+  auction   Auction  @relation(fields: [auctionId], references: [id])
+  auctionId String
+  charity   Charity  @relation(fields: [charityId], references: [id])
+  charityId String
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  rating    Int      @default(5)
+  comment   String?
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  auction   Auction  @relation(fields: [auctionId], references: [id])
+  auctionId String
+  createdAt DateTime @default(now())
+}
