@@ -8,6 +8,12 @@ const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
+const cors = require('cors')
+
+app.use(cors({
+    origin: "*",
+}))
+
 app.use(bodyParser.json());
 
 app.use('/auctions', auctionRoutes);
