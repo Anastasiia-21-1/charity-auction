@@ -10,9 +10,16 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue')
+      path: "",
+      name: "public",
+      component: () => import('../layouts/PublicLayout.vue'),
+      children: [
+        {
+          path: 'auctions',
+          name: 'public-auctions',
+          component: () => import('../views/public/AuctionsView.vue'),
+        }
+      ]
     },
     {
       path: '/admin',
@@ -21,8 +28,13 @@ const router = createRouter({
       children: [
         {
           path: 'users',
-          name: 'users',
-          component: () => import('../views/AdminUsersView.vue')
+          name: 'admin-users',
+          component: () => import('../views/admin/AdminUsersView.vue')
+        },
+        {
+          path: 'auctions',
+          name: 'admin-auctions',
+          component: () => import('../views/admin/AdminAuctionsView.vue')
         },
       ]
     }
