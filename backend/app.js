@@ -4,6 +4,7 @@ const auctionRoutes = require('./routes/auctionRoutes');
 const bidRoutes = require('./routes/bidRoutes');
 const charityRoutes = require('./routes/charityRoutes');
 const userRoutes = require('./routes/userRoutes');
+const authRoutes = require('./routes/authRoutes');
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
@@ -20,6 +21,7 @@ app.use('/auctions', auctionRoutes);
 app.use('/bids', bidRoutes);
 app.use('/charities', charityRoutes);
 app.use('/users', userRoutes);
+app.use('/auth', authRoutes);
 
 app.use(errorHandler);
 
