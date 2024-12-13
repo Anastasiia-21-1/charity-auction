@@ -29,6 +29,10 @@ export const i18n = createI18n({
         startingAt: 'Starting at',
         goTo: 'Go to',
         new: 'Add new',
+        makeBet: 'Make a bet',
+        currentBet: 'Current bet',
+        biggestBet: 'Biggest bet',
+        yourBet: 'Your bet',
         fields: {
           title: 'Title',
           description: 'Description',
@@ -84,6 +88,10 @@ export const i18n = createI18n({
         startingAt: 'Починається з',
         goTo: 'Перейти',
         new: 'Додати новий',
+        makeBet: 'Зробити ставку',
+        currentBet: 'Поточна ставка',
+        biggestBet: 'Найбільша ставка',
+        yourBet: 'Ваша ставка',
         fields: {
           title: 'Назва',
           description: 'Опис',

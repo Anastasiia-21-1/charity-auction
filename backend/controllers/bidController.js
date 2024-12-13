@@ -1,5 +1,21 @@
 const prisma = require('../lib/prisma');
 
+exports.makeBid = async (req, res, next) => {
+    try {
+        const { amount, auctionId } = req.body;
+        const bids = await prisma.bid.create({
+            data: {
+                amount,
+                userId: req.user.id,
+                auctionId,
+            }
+        });
+        res.json(bids);
+    } catch (error) {
+        next(error);
+    }
+}
+
 exports.getAllBids = async (req, res, next) => {
     try {
         const bids = await prisma.bid.findMany({

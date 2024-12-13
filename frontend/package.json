@@ -16,6 +16,7 @@
     "@vee-validate/yup": "^4.14.7",
     "axios": "^1.7.7",
     "date-fns": "^4.1.0",
+    "jwt-decode": "^4.0.0",
     "pinia": "^2.2.4",
     "primeicons": "^7.0.0",
     "primevue": "^4.1.1",

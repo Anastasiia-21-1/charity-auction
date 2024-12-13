@@ -3,6 +3,7 @@ import {useAuctionsStore} from "@/stores/auctions.js";
 import {computed, onMounted} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import Button from "primevue/button";
+import AuctionBids from "@/components/auctions/AuctionBids.vue";
 
 const auctionStore = useAuctionsStore()
 
@@ -43,5 +44,7 @@ const sellerName = computed(() => {
         {{ sellerName }}
       </div>
     </button>
+
+    <AuctionBids/>
   </main>
 </template>
