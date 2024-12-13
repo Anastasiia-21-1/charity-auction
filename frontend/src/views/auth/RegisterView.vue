@@ -10,14 +10,16 @@ import { api } from "@/lib/axios"
 import Button from "primevue/button";
 
 const authSchema = yup.object({
-  email: yup.string().required(),
-  password: yup.string().required(),
+  name: yup.string().min(3).required(),
+  email: yup.string().email().required(),
+  password: yup.string().min(3).required(),
 })
 
 const { defineField, handleSubmit, errors } = useForm({
   validationSchema: toTypedSchema(authSchema),
 })
 
+const [name] = defineField('name')
 const [email] = defineField('email')
 const [password] = defineField('password')
 
@@ -26,7 +28,7 @@ const router = useRouter()
 
 const onSubmit = handleSubmit(async ({ email, password }) => {
   try {
-    const { data } = await api.post('/auth/login', {
+    const { data } = await api.post('/auth/register', {
       email,
       password,
     })
@@ -50,6 +52,17 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
     <div>
       <form @submit="onSubmit">
         <div>
+          <label class="block mt-5 mb-1" for="email">{{$t('auth.name')}}</label>
+          <InputText
+            v-model="name"
+            aria-describedby="name-help"
+            type="name"
+            :class="{ 'p-invalid': errors.name }"
+          />
+          <small id="name-help" class="block">{{ errors.name }}</small>
+        </div>
+
+        <div>
           <label class="block mt-5 mb-1" for="email">{{$t('auth.email')}}</label>
           <InputText
             v-model="email"
@@ -71,7 +84,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
           />
           <small id="password-help" class="block">{{ errors.password }}</small>
         </div>
-        <RouterLink to="/auth/register" class="block text-emerald-500">{{$t('auth.dontHaveAcc')}}</RouterLink>
+        <RouterLink to="/auth/login" class="block text-emerald-500">{{$t('auth.alreadyHaveAcc')}}</RouterLink>
 
         <Button type="submit" class="mt-5">{{$t('auth.submitLogin')}}</Button>
       </form>

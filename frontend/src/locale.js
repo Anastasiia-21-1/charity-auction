@@ -16,9 +16,13 @@ export const i18n = createI18n({
       auth: {
         register: 'Register',
         login: 'Login',
+        name: 'Name',
         email: 'Email',
         password: 'Password',
         submitLogin: 'Login',
+        submitRegister: 'Register',
+        dontHaveAcc: 'Don\'t have an account?',
+        alreadyHaveAcc: 'Already have an account?',
       },
       auctions: {
         title: 'Auctions',
@@ -67,9 +71,13 @@ export const i18n = createI18n({
       auth: {
         register: 'Реєстрація',
         login: 'Увійти',
+        name: 'Ім\'я',
         email: 'Електронна пошта',
         password: 'Пароль',
         submitLogin: 'Увійти',
+        submitRegister: 'Зареєструватися',
+        dontHaveAcc: 'Не маєте облікового запису?',
+        alreadyHaveAcc: 'Вже маєте обліковий запис?',
       },
       auctions: {
         title: 'Аукціони',

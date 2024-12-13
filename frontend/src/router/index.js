@@ -75,6 +75,11 @@ const router = createRouter({
           path: 'login',
           name: 'auth-login',
           component: () => import('../views/auth/LoginView.vue'),
+        },
+        {
+          path: 'register',
+          name: 'auth-register',
+          component: () => import('../views/auth/RegisterView.vue'),
         }
       ]
     },
@@ -101,7 +106,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token')
-  console.log({token})
   if (to.matched.some(record => record.meta.requiresAuth) && !token) {
     next('/auth/login')
   } else {
