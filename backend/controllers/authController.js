@@ -12,6 +12,7 @@ exports.register = async (req, res, next) => {
     const user = await prisma.user.create({
       data: {
         email: req.body.email,
+        name: req.body.name,
         password: await bcrypt.hash(req.body.password, 10),
       },
       select: {

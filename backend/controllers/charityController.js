@@ -11,9 +11,16 @@ exports.getAllCharities = async (req, res, next) => {
 
 exports.createCharity = async (req, res, next) => {
     try {
-        const { name, description, website } = req.body;
+        const {name, description, bankAccount, targetAmount, currency, website} = req.body;
         const charity = await prisma.charity.create({
-            data: { name, description, website }
+            data: {
+                name,
+                description,
+                bankAccount,
+                targetAmount,
+                currency,
+                website,
+            }
         });
         res.status(201).json(charity);
     } catch (error) {
@@ -24,10 +31,10 @@ exports.createCharity = async (req, res, next) => {
 exports.getCharityById = async (req, res, next) => {
     try {
         const charity = await prisma.charity.findUnique({
-            where: { id: req.params.id }
+            where: {id: req.params.id}
         });
         if (!charity) {
-            return res.status(404).json({ error: 'Charity not found' });
+            return res.status(404).json({error: 'Charity not found'});
         }
         res.json(charity);
     } catch (error) {

@@ -26,9 +26,10 @@ const [password] = defineField('password')
 const toast = useToast()
 const router = useRouter()
 
-const onSubmit = handleSubmit(async ({ email, password }) => {
+const onSubmit = handleSubmit(async ({ email, password, name }) => {
   try {
     const { data } = await api.post('/auth/register', {
+      name,
       email,
       password,
     })
@@ -48,7 +49,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
 
 <template>
   <div>
-    <h1 class="text-center">{{$t('auth.password')}}</h1>
+    <h1 class="text-center">{{$t('auth.register')}}</h1>
     <div>
       <form @submit="onSubmit">
         <div>
@@ -86,7 +87,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
         </div>
         <RouterLink to="/auth/login" class="block text-emerald-500">{{$t('auth.alreadyHaveAcc')}}</RouterLink>
 
-        <Button type="submit" class="mt-5">{{$t('auth.submitLogin')}}</Button>
+        <Button type="submit" class="mt-5">{{$t('auth.submitRegister')}}</Button>
       </form>
     </div>
   </div>

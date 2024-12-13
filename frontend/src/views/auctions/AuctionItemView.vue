@@ -33,7 +33,7 @@ const sellerName = computed(() => {
       {{ current?.description }}
     </p>
     <span>
-      {{ $t('auctions.startingAt') }} {{ current?.startingPrice }} {{ current?.currency }}
+      {{ $t('auctions.startingAt') }} {{ current?.startingPrice }} {{ current?.charity?.currency }}
     </span>
     <button class="flex gap-2" @click="router.push(`/users/${current?.seller?.id}`)">
       <div class="size-6 flex justify-center items-center text-white text-xs rounded-full bg-emerald-400">

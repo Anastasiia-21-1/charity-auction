@@ -46,7 +46,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
 
 <template>
   <div>
-    <h1 class="text-center">{{$t('auth.password')}}</h1>
+    <h1 class="text-center">{{$t('auth.login')}}</h1>
     <div>
       <form @submit="onSubmit">
         <div>

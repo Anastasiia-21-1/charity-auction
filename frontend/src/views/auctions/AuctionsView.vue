@@ -25,12 +25,12 @@ onMounted(() => {
     </div>
     <div class="flex flex-wrap gap-4">
       <AuctionCard
-        v-for="{id, title, description, startingPrice, currency, seller, createdAt, endsAt, images} in store.auctions"
+        v-for="{id, title, description, startingPrice, charity, seller, createdAt, endsAt, images} in store.auctions"
         :id="id"
         :title="title"
         :description="description"
         :startingPrice="startingPrice"
-        :currency="currency"
+        :currency="charity.currency"
         :seller-name="seller.name || undefined"
         :seller-id="seller.id"
         :created-at="createdAt"

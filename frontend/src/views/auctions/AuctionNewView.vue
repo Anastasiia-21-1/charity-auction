@@ -23,7 +23,6 @@ const authSchema = yup.object({
   title: yup.string().required(),
   description: yup.string(),
   startingPrice: yup.string().required(),
-  currency: yup.string().required(),
   endsAt: yup.string().required(),
   charityId: yup.object({
     name: yup.string().required(),
@@ -38,20 +37,18 @@ const {defineField, handleSubmit, errors} = useForm({
 const [title] = defineField('title')
 const [description] = defineField('description')
 const [startingPrice] = defineField('startingPrice')
-const [currency] = defineField('currency')
 const [endsAt] = defineField('endsAt')
 const [charityId] = defineField('charityId')
 
 const toast = useToast()
 const router = useRouter()
 
-const onSubmit = handleSubmit(async ({title, description, startingPrice, currency, endsAt, charityId}) => {
+const onSubmit = handleSubmit(async ({title, description, startingPrice, endsAt, charityId}) => {
   try {
     await api.post('/auctions', {
       title,
       description,
       startingPrice: +startingPrice,
-      currency,
       endsAt,
       charityId: charityId.code
     })
@@ -84,8 +81,9 @@ const charityOptions = computed(() => {
 
     <form @submit="onSubmit" class="space-y-2">
       <div>
-        <label class="block" for="email">{{ $t('auctions.fields.title') }}</label>
+        <label class="block" for="title">{{ $t('auctions.fields.title') }}</label>
         <InputText
+          id="title"
           v-model="title"
           aria-describedby="title-help"
           type="text"
@@ -95,8 +93,9 @@ const charityOptions = computed(() => {
       </div>
 
       <div>
-        <label class="block" for="email">{{ $t('auctions.fields.description') }}</label>
+        <label class="block" for="description">{{ $t('auctions.fields.description') }}</label>
         <InputText
+          id="description"
           v-model="description"
           aria-describedby="description-help"
           type="text"
@@ -106,8 +105,9 @@ const charityOptions = computed(() => {
       </div>
 
       <div>
-        <label class="block" for="email">{{ $t('auctions.fields.startingPrice') }}</label>
+        <label class="block" for="startingPrice">{{ $t('auctions.fields.startingPrice') }}</label>
         <InputText
+          id="startingPrice"
           v-model="startingPrice"
           aria-describedby="startingPrice-help"
           type="number"
@@ -117,19 +117,9 @@ const charityOptions = computed(() => {
       </div>
 
       <div>
-        <label class="block" for="email">{{ $t('auctions.fields.currency') }}</label>
-        <InputText
-          v-model="currency"
-          aria-describedby="currency-help"
-          type="text"
-          :class="{ 'p-invalid': errors.currency }"
-        />
-        <small id="currency-help" class="block">{{ errors.currency }}</small>
-      </div>
-
-      <div>
-        <label class="block" for="email">{{ $t('auctions.fields.endsAt') }}</label>
+        <label class="block" for="endsAt">{{ $t('auctions.fields.endsAt') }}</label>
         <DatePicker
+          id="endsAt"
           v-model="endsAt"
           aria-describedby="endsAt-help"
           :class="{ 'p-invalid': errors.endsAt }"
@@ -138,8 +128,9 @@ const charityOptions = computed(() => {
       </div>
 
       <div>
-        <label class="block" for="email">{{ $t('auctions.fields.charityId') }}</label>
+        <label class="block" for="charityId">{{ $t('auctions.fields.charityId') }}</label>
         <Select
+          id="charityId"
           v-model="charityId"
           :options="charityOptions"
           optionLabel="name"

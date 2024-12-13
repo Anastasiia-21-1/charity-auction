@@ -8,13 +8,12 @@ exports.getAllAuctions = async (req, res, next) => {
                 title: true,
                 description: true,
                 startingPrice: true,
-                currency: true,
                 seller: true,
                 charity: true,
                 createdAt: true,
                 endsAt: true,
                 images: true,
-                bids: true
+                bids: true,
             }
         });
         res.json(auctions);
@@ -25,13 +24,12 @@ exports.getAllAuctions = async (req, res, next) => {
 
 exports.createAuction = async (req, res, next) => {
     try {
-        const {title, description, startingPrice, currency, charityId, images, endsAt} = req.body;
+        const {title, description, startingPrice, charityId, images, endsAt} = req.body;
         const auction = await prisma.auction.create({
             data: {
                 title,
                 description,
                 startingPrice,
-                currency,
                 charityId,
                 endsAt: new Date(endsAt),
                 sellerId: req.user.id,
