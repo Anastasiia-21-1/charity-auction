@@ -21,6 +21,7 @@ const router = createRouter({
               path: 'new',
               name: 'public-auction-new',
               component: () => import('../views/auctions/AuctionNewView.vue'),
+              meta: {requiresAuth: true}
             },
             {
               path: ':id',
@@ -42,6 +43,7 @@ const router = createRouter({
               path: 'new',
               name: 'public-charity-new',
               component: () => import('../views/charities/CharityNewView.vue'),
+              meta: {requiresAuth: true}
             },
           ]
         },
@@ -58,6 +60,7 @@ const router = createRouter({
               path: ':id',
               name: 'public-users-item',
               component: () => import('../views/users/UsersItemView.vue'),
+              meta: {requiresAuth: true}
             },
           ]
         },
@@ -79,6 +82,7 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('../layouts/AdminLayout.vue'),
+      meta: {requiresAuth: true},
       children: [
         {
           path: 'users',
@@ -93,6 +97,16 @@ const router = createRouter({
       ]
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token')
+  console.log({token})
+  if (to.matched.some(record => record.meta.requiresAuth) && !token) {
+    next('/auth/login')
+  } else {
+    next()
+  }
 })
 
 export default router
