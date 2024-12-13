@@ -15,10 +15,13 @@
     "@primevue/themes": "^4.1.1",
     "@vee-validate/yup": "^4.14.7",
     "axios": "^1.7.7",
+    "date-fns": "^4.1.0",
     "pinia": "^2.2.4",
+    "primeicons": "^7.0.0",
     "primevue": "^4.1.1",
     "vee-validate": "^4.14.7",
     "vue": "^3.5.12",
+    "vue-i18n": "^10.0.5",
     "vue-router": "^4.4.5",
     "yup": "^1.4.0"
   },

@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 function generateAccessToken(user) {
-  return jwt.sign({ email: user.email }, process.env.TOKEN_SECRET, { expiresIn: '1800s' });
+  return jwt.sign({ id: user.id, email: user.email }, process.env.TOKEN_SECRET, { expiresIn: '180000s' });
 }
 
 exports.register = async (req, res, next) => {
@@ -14,6 +14,10 @@ exports.register = async (req, res, next) => {
         email: req.body.email,
         password: await bcrypt.hash(req.body.password, 10),
       },
+      select: {
+        id: true,
+        email: true
+      }
     });
     const token = generateAccessToken(user);
     res.json({ token, message: 'User created successfully' });
@@ -26,6 +30,7 @@ exports.login = async (req, res, next) => {
   try {
     const user = await prisma.user.findUnique({
       select: {
+        id: true,
         email: true,
         password: true,
       },

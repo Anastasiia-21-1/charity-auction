@@ -26,21 +26,14 @@ const router = useRouter()
 
 const onSubmit = handleSubmit(async ({ email, password }) => {
   try {
-    console.log('before')
     const { data } = await api.post('/auth/login', {
       email,
       password,
     })
-    console.log({data})
-
     localStorage.setItem('token', data.token)
-    console.log('stored')
     await router.push('/')
-    console.log('pushed')
   } catch (error) {
-    console.log({error})
     if (error instanceof AxiosError) {
-      console.log({error})
       toast.add({
         severity: 'error',
         summary: error.response?.data.message,
@@ -53,11 +46,11 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
 
 <template>
   <div>
-    <h1 class="text-center">Login</h1>
+    <h1 class="text-center">{{$t('auth.password')}}</h1>
     <div>
       <form @submit="onSubmit">
         <div>
-          <label class="block mt-5 mb-1" for="email">Email</label>
+          <label class="block mt-5 mb-1" for="email">{{$t('auth.email')}}</label>
           <InputText
             v-model="email"
             aria-describedby="email-help"
@@ -68,7 +61,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
         </div>
 
         <div>
-          <label class="block mt-5 mb-1" for="password">Password</label>
+          <label class="block mt-5 mb-1" for="password">{{$t('auth.password')}}</label>
           <InputText
             v-model="password"
             aria-describedby="password-help"
@@ -79,7 +72,7 @@ const onSubmit = handleSubmit(async ({ email, password }) => {
           <small id="password-help" class="block">{{ errors.password }}</small>
         </div>
 
-        <Button type="submit" class="mt-5">Submit</Button>
+        <Button type="submit" class="mt-5 w-full">{{$t('auth.submitLogin')}}</Button>
       </form>
     </div>
   </div>

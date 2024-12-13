@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 import {ref} from "vue";
 import {api} from "@/lib/axios.js";
 
-export const useUsersStore = defineStore("usersStore", () => {
+export const useUsersStore = defineStore("users", () => {
   const users = ref([]);
 
   function initUsers(data) {

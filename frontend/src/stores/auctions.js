@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 import {ref} from "vue";
 import {api} from "@/lib/axios.js";
 
-export const useAuctionsStore = defineStore("auctionsStore", () => {
+export const useAuctionsStore = defineStore("auction", () => {
   const auctions = ref([]);
 
   function initAuctions(data) {
@@ -18,8 +18,8 @@ export const useAuctionsStore = defineStore("auctionsStore", () => {
     initAuctions(data);
   }
 
-  async function dispatchCreateAuction(user) {
-    const {data} = await api.post("/auctions", user);
+  async function dispatchCreateAuction(auction) {
+    const {data} = await api.post("/auctions", auction);
     initAuctions(data);
   }
 

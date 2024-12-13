@@ -24,7 +24,3 @@ const links = [
     </div>
   </main>
 </template>
-
-<style scoped>
-
-</style>

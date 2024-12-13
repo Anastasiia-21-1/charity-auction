@@ -14,10 +14,11 @@ model User {
   password String
   auctions Auction[]
 
-  bids      Bid[]
-  reviews   Review[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  bids          Bid[]
+  reviews       Review[] @relation(name: "UserReviews")
+  sellerReviews Review[] @relation(name: "SellerReviews")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Auction {
@@ -27,14 +28,13 @@ model Auction {
   startingPrice Float
   currency      String
   images        AuctionImage[]
-  createdBy     User           @relation(fields: [createdById], references: [id])
-  createdById   String
+  seller        User           @relation(fields: [sellerId], references: [id])
+  sellerId      String
   bids          Bid[]
   charity       Charity        @relation(fields: [charityId], references: [id])
   charityId     String
   createdAt     DateTime       @default(now())
   endsAt        DateTime
-  reviews       Review[]
   donations     Donation[]
 }
 
@@ -81,9 +81,9 @@ model Review {
   id        String   @id @default(uuid())
   rating    Int      @default(5)
   comment   String?
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(name: "UserReviews", fields: [userId], references: [id])
   userId    String
-  auction   Auction  @relation(fields: [auctionId], references: [id])
-  auctionId String
+  seller    User     @relation(name: "SellerReviews", fields: [sellerId], references: [id])
+  sellerId  String
   createdAt DateTime @default(now())
 }

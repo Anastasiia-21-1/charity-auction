@@ -3,7 +3,19 @@ const prisma = require('../lib/prisma');
 exports.getAllAuctions = async (req, res, next) => {
     try {
         const auctions = await prisma.auction.findMany({
-            include: {images: true, bids: true}
+            select: {
+                id: true,
+                title: true,
+                description: true,
+                startingPrice: true,
+                currency: true,
+                seller: true,
+                charity: true,
+                createdAt: true,
+                endsAt: true,
+                images: true,
+                bids: true
+            }
         });
         res.json(auctions);
     } catch (error) {
@@ -13,7 +25,7 @@ exports.getAllAuctions = async (req, res, next) => {
 
 exports.createAuction = async (req, res, next) => {
     try {
-        const {title, description, startingPrice, currency, charityId, images} = req.body;
+        const {title, description, startingPrice, currency, charityId, images, endsAt} = req.body;
         const auction = await prisma.auction.create({
             data: {
                 title,
@@ -21,9 +33,14 @@ exports.createAuction = async (req, res, next) => {
                 startingPrice,
                 currency,
                 charityId,
-                images: {
-                    create: images.map((url) => ({url}))
-                }
+                endsAt: new Date(endsAt),
+                sellerId: req.user.id,
+
+                ...(images?.length && {
+                    images: {
+                        create: images.map((url) => ({url}))
+                    }
+                })
             }
         });
         res.status(201).json(auction);
