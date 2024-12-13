@@ -33,6 +33,7 @@ export const i18n = createI18n({
         currentBet: 'Current bet',
         biggestBet: 'Biggest bet',
         yourBet: 'Your bet',
+        minBetError: 'Bet must be bigger than: ',
         fields: {
           title: 'Title',
           description: 'Description',
@@ -92,6 +93,7 @@ export const i18n = createI18n({
         currentBet: 'Поточна ставка',
         biggestBet: 'Найбільша ставка',
         yourBet: 'Ваша ставка',
+        minBetError: 'Ваша ставка повинна бути більшою за: ',
         fields: {
           title: 'Назва',
           description: 'Опис',

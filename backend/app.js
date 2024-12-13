@@ -6,8 +6,19 @@ const charityRoutes = require('./routes/charityRoutes');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
 const errorHandler = require('./middlewares/errorHandler');
+const { createServer } = require('node:http');
+const { Server } = require('socket.io');
 
 const app = express();
+
+const server = createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: "*"
+    }
+});
+
+app.set("io", io);
 
 const cors = require('cors')
 
@@ -25,4 +36,4 @@ app.use('/auth', authRoutes);
 
 app.use(errorHandler);
 
-module.exports = app;
+module.exports = server;

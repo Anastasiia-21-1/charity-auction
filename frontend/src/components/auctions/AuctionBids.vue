@@ -11,6 +11,9 @@ import {AxiosError} from "axios";
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
 import {jwtDecode} from "jwt-decode";
+import {useBidsSubscription} from "@/composables/useBidsSubscription.js";
+import Toast from "primevue/toast";
+import {useI18n} from "vue-i18n";
 
 const auctionStore = useAuctionsStore()
 
@@ -27,7 +30,6 @@ const current = computed(() => {
   return auctionStore.auctions.find(auction => auction.id === id)
 })
 
-
 const authSchema = yup.object({
   amount: yup.string().required(),
 })
@@ -39,9 +41,20 @@ const {defineField, handleSubmit, errors} = useForm({
 const [amount] = defineField('amount')
 
 const toast = useToast()
+const i18n = useI18n()
 
 const onSubmit = handleSubmit(async ({amount}) => {
   try {
+    const minAmount = Math.max((biggestBet?.amount ?? 0), current?.value?.startingPrice ?? 0)
+    if (+amount < minAmount + 1) {
+      toast.add({
+        severity: 'error',
+        summary: i18n.t('auctions.minBetError') + minAmount + 1,
+        life: 2000,
+      })
+      return
+    }
+
     await api.post('/bids/make', {
       auctionId: current.value.id,
       amount: +amount,
@@ -63,20 +76,18 @@ const biggestBet = computed(() => {
   }, 0)
 })
 
+useBidsSubscription(route.params.id)
+
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    {{ JSON.stringify(current?.bids) }}
-
     <h2>
-      {{ $t('auctions.biggestBet') }}: {{ biggestBet?.amount }} {{ current?.charity?.currency }}
+      {{ $t('auctions.biggestBet') }}: {{ biggestBet?.amount ?? 0 }} {{ current?.charity?.currency }}
       <span v-if="biggestBet?.userId === currentUserId" class="text-emerald-500">
         {{ $t('auctions.yourBet') }}
       </span>
     </h2>
-
-    <h2>{{ $t('auctions.currentBet') }}</h2>
 
     <form @submit="onSubmit" class="space-y-2">
       <div class="flex gap-2">
@@ -96,4 +107,5 @@ const biggestBet = computed(() => {
     </form>
 
   </div>
+  <Toast/>
 </template>

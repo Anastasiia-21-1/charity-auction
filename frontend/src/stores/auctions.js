@@ -13,6 +13,12 @@ export const useAuctionsStore = defineStore("auction", () => {
     auctions.value.push(user);
   }
 
+  function addNewAuctionBid(auctionId, bid) {
+    const auction = auctions.value.find(auction => auction.id === auctionId);
+    if (!auction) return
+    auction.bids.push(bid);
+  }
+
   async function dispatchGetAuctions() {
     const {data} = await api.get("/auctions");
     initAuctions(data);
@@ -27,6 +33,7 @@ export const useAuctionsStore = defineStore("auction", () => {
     auctions,
     initAuctions,
     addNewAuction,
+    addNewAuctionBid,
     dispatchGetAuctions,
     dispatchCreateAuction,
   }

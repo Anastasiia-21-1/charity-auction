@@ -2,6 +2,7 @@ const prisma = require('../lib/prisma');
 
 exports.makeBid = async (req, res, next) => {
     try {
+        const io = req.app.get("io");
         const { amount, auctionId } = req.body;
         const bids = await prisma.bid.create({
             data: {
@@ -10,6 +11,7 @@ exports.makeBid = async (req, res, next) => {
                 auctionId,
             }
         });
+        io.emit(`auction-bids:${auctionId}`, bids);
         res.json(bids);
     } catch (error) {
         next(error);
