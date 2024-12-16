@@ -12,6 +12,8 @@ export const i18n = createI18n({
         logout: 'Logout',
         charities: 'Charities',
         users: 'Users',
+        myDonates: 'My donates',
+        adminPanel: 'Admin panel',
       },
       auth: {
         register: 'Register',
@@ -52,6 +54,10 @@ export const i18n = createI18n({
           website: 'Website',
         }
       },
+      donates: {
+        donate: 'Donate',
+        amount: 'Amount',
+      },
       users: {
         title: 'Users',
         comments: 'Comments',
@@ -62,6 +68,11 @@ export const i18n = createI18n({
           rating: 'Rating',
           submit: 'Submit',
         },
+      },
+      admin: {
+        back: 'Back',
+        users: 'Users',
+        auctions: 'Auctions',
       }
     },
     ua: {
@@ -72,6 +83,8 @@ export const i18n = createI18n({
         logout: 'Вийти',
         charities: 'Благодійні збори',
         users: 'Користувачі',
+        myDonates: 'Мої пожертви',
+        adminPanel: 'Панель адміністора',
       },
       auth: {
         register: 'Реєстрація',
@@ -112,6 +125,10 @@ export const i18n = createI18n({
           website: 'Веб-сайт',
         }
       },
+      donates: {
+        donate: 'Пожертвувати',
+        amount: 'Сума',
+      },
       users: {
         title: 'Користувачі',
         comments: 'Коментарі',
@@ -122,6 +139,11 @@ export const i18n = createI18n({
           rating: 'Рейтинг',
           submit: 'Відправити',
         },
+      },
+      admin: {
+        back: 'Назад',
+        users: 'Користувачі',
+        auctions: 'Аукціони',
       }
     }
   }

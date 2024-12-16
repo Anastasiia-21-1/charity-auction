@@ -1,9 +1,13 @@
 <script setup>
 import Button from "primevue/button";
+import {useI18n} from "vue-i18n";
+
+const {t} = useI18n()
 
 const links = [
-  {href: "users", label: "Users"},
-  {href: "auctions", label: "Auctions"},
+  {href: "/", label: t('admin.back')},
+  {href: "/admin/users", label: t('admin.users')},
+  {href: "/admin/auctions", label: t('admin.auctions')},
 ]
 
 </script>

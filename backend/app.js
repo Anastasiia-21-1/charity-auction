@@ -5,6 +5,7 @@ const bidRoutes = require('./routes/bidRoutes');
 const charityRoutes = require('./routes/charityRoutes');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
+const donatesRoutes = require('./routes/donatesRoutes');
 const errorHandler = require('./middlewares/errorHandler');
 const { createServer } = require('node:http');
 const { Server } = require('socket.io');
@@ -33,6 +34,7 @@ app.use('/bids', bidRoutes);
 app.use('/charities', charityRoutes);
 app.use('/users', userRoutes);
 app.use('/auth', authRoutes);
+app.use('/donates', donatesRoutes)
 
 app.use(errorHandler);
 

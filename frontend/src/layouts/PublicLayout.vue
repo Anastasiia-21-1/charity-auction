@@ -27,8 +27,14 @@ function handleLogout() {
         <RouterLink to="/users">
           {{$t('header.users')}}
         </RouterLink>
+        <RouterLink to="/donates/my">
+          {{$t('header.myDonates')}}
+        </RouterLink>
       </div>
-      <div>
+      <div class="flex gap-4">
+        <RouterLink to="/admin" v-if="isLoggedIn">
+          {{$t('header.adminPanel')}}
+        </RouterLink>
         <button @click="handleLogout" v-if="isLoggedIn">
           {{$t('header.logout')}}
         </button>

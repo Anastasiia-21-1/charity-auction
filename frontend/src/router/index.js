@@ -64,6 +64,18 @@ const router = createRouter({
             },
           ]
         },
+        {
+          path: 'donates',
+          name: 'donates',
+          children: [
+            {
+              path: 'my',
+              name: 'donates-my',
+              component: () => import('../views/donates/MyDonatesView.vue'),
+              meta: {requiresAuth: true}
+            }
+          ]
+        }
       ]
     },
     {
